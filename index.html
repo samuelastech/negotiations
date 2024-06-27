@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Negotiations</title>
+</head>
+<body>
+  <h1>Negotiations</h1>
+  
+  <form>
+    <label>
+      <span>Date</span>
+      <input type="date" id="date" required autofocus /> 
+    </label>
+
+    <label>
+      <span>Quantity</span>
+      <input type="number" id="quantity" min="1" step="1" value="1" required /> 
+    </label>
+
+    <label>
+      <span>Value</span>
+      <input type="number" id="value" min="0.01" step="0.01" value="0.0" required /> 
+    </label>
+
+    <button type="submit">
+      Include
+    </button>
+  </form>
+
+  <div>
+    <button type="button">Import negotiations</button>
+    <button type="button">Delete</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Quantity</th>
+        <th>Value</th>
+        <th>Volume</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot></tfoot>
+  </table>
+  
+  <script src="js/index.js"></script>
+</body>
+</html>
