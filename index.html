@@ -8,7 +8,7 @@
 <body>
   <h1>Negotiations</h1>
   
-  <form>
+  <form onsubmit="controller.add(event)">
     <label>
       <span>Date</span>
       <input type="date" id="date" required autofocus /> 
@@ -33,20 +33,19 @@
     <button type="button">Import negotiations</button>
     <button type="button">Delete</button>
   </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Quantity</th>
-        <th>Value</th>
-        <th>Volume</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-    <tfoot></tfoot>
-  </table>
   
-  <script src="js/index.js"></script>
+  <div id="negotiations"></div>
+
+  <script src="app/helpers/DateHelper.js"></script>
+  <script src="app/models/Negotiation.js"></script>
+  <script src="app/models/NegotiationList.js"></script>
+  <script src="app/views/NegotiationsView.js"></script>
+  <script src="app/controllers/NegotiationController.js"></script>
+  <script>
+    const controller = new NegotiationController({
+      list: new NegotiationList(),
+      view: new NegotiationsView(document.querySelector('#negotiations')),
+    }); 
+  </script>
 </body>
 </html>
