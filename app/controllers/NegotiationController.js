@@ -1,12 +1,17 @@
 class NegotiationController {
-  /** @type {HTMLInputElement} */
-  inputDate;
+  /**
+   * @typedef {Object} Inputs
+   * @property {HTMLInputElement|null} inputDate
+   * @property {HTMLInputElement|null} inputQuantity
+   * @property {HTMLInputElement|null} inputValue
+  */
 
-  /** @type {HTMLInputElement} */
-  inputQuantity;
-
-  /** @type {HTMLInputElement} */
-  inputValue;
+  /** @type {Inputs} */
+  #inputs = {
+    inputDate: null,
+    inputQuantity: null,
+    inputValue: null,
+  };
 
   #list;
   #view;
@@ -25,10 +30,10 @@ class NegotiationController {
     const inputs = document.querySelectorAll('input[id]');
 
     for (const input of inputs) {
-      this['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
+      this.#inputs['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
     }
 
-    this.inputDate.focus();
+    this.#inputs.inputDate.focus();
     this.#view.update(this.#list);
   }
   /**
@@ -39,9 +44,9 @@ class NegotiationController {
     event.preventDefault();
 
     const negotiation = new Negotiation({
-      date: DateHelper.stringToDate(this.inputDate.value),
-      value: this.inputValue.value,
-      quantity: this.inputQuantity.value,
+      date: DateHelper.stringToDate(this.#inputs.inputDate.value),
+      value: this.#inputs.inputValue.value,
+      quantity: this.#inputs.inputQuantity.value,
     });
 
     this.#list.add(negotiation);
@@ -51,9 +56,9 @@ class NegotiationController {
   }
 
   #cleanForm () {
-    this.inputDate.value = '';
-    this.inputQuantity.value = 1;
-    this.inputValue.value = 0.0;
-    this.inputDate.focus();
+    this.#inputs.inputDate.value = '';
+    this.#inputs.inputQuantity.value = 1;
+    this.#inputs.inputValue.value = 0.0;
+    this.#inputs.inputDate.focus();
   }
 }
