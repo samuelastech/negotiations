@@ -4,14 +4,22 @@
  */
 class NegotiationList {
   #negotiations;
+  #trap;
 
-  constructor () {
+  /**
+   * @constructor
+   * @param {object} param 
+   * @param {Function} param.trap 
+   */
+  constructor ({ trap }) {
     this.#negotiations = [];
+    this.#trap = trap;
   }
 
   /** Clears the negotiation list */
   clear () {
     this.#negotiations = [];
+    this.#trap(this);
   }
 
   /**
@@ -20,6 +28,7 @@ class NegotiationList {
    */
   add (negotiation) {
     this.#negotiations.push(negotiation);
+    this.#trap(this);
   }
 
   /**

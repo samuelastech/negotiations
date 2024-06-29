@@ -57,7 +57,11 @@ class NegotiationController {
       this.#inputs['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
     }
 
-    this.#models.NegotiationList = new this.#models.NegotiationList();
+    this.#models.NegotiationList = new this.#models.NegotiationList({
+      trap: (model) => {
+        this.#views.NegotiationsView.update(model);
+      }
+    });
     this.#views.NegotiationsView = new this.#views.NegotiationsView({
       element: document.querySelector('#negotiations'),
     });
@@ -67,7 +71,6 @@ class NegotiationController {
 
   clear () {
     this.#models.NegotiationList.clear();
-    this.#views.NegotiationsView.update(this.#models.NegotiationList);
     alert('The negotiations was deleted');
   }
 
@@ -86,7 +89,6 @@ class NegotiationController {
 
     this.#models.NegotiationList.add(negotiation);
     alert('The negotiation was added successfully');
-    this.#views.NegotiationsView.update(this.#models.NegotiationList);
     this.#cleanForm();
   }
 
