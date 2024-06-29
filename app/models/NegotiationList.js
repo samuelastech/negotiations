@@ -9,6 +9,11 @@ class NegotiationList {
     this.#negotiations = [];
   }
 
+  /** Clears the negotiation list */
+  clear () {
+    this.#negotiations = [];
+  }
+
   /**
    * Saves a negotiation
    * @param {Negotiation} negotiation 

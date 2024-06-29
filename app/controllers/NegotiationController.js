@@ -64,6 +64,13 @@ class NegotiationController {
     this.#inputs.inputDate.focus();
     this.#views.NegotiationsView.update(this.#models.NegotiationList);
   }
+
+  clear () {
+    this.#models.NegotiationList.clear();
+    this.#views.NegotiationsView.update(this.#models.NegotiationList);
+    alert('The negotiations was deleted');
+  }
+
   /**
    * Adds a new negotiation in the table
    * @param {SubmitEvent} event 
