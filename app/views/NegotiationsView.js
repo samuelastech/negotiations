@@ -5,7 +5,7 @@ class NegotiationsView {
    * Creates a pointer to the HTML place where the table will be rendered
    * @param {HTMLElement} element 
    */
-  constructor (element) {
+  constructor ({ element }) {
     this.#element = element;
   }
 

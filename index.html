@@ -43,9 +43,9 @@
   <script src="app/controllers/NegotiationController.js"></script>
   <script>
     const controller = new NegotiationController({
-      list: new NegotiationList(),
-      view: new NegotiationsView(document.querySelector('#negotiations')),
-    }); 
+      views: [NegotiationsView],
+      models: [Negotiation, NegotiationList],
+    });
   </script>
 </body>
 </html>

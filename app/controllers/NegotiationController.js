@@ -13,8 +13,27 @@ class NegotiationController {
     inputValue: null,
   };
 
-  #list;
-  #view;
+  /**
+   * @typedef {Object} Views
+   * @property {NegotiationsView|null} NegotiationsView
+  */
+
+   /** @type {Views} */
+  #views = {
+    NegotiationsView: null,
+  };
+
+  /**
+   * @typedef {Object} Models
+   * @property {Negotiation|null} Negotiation
+   * @property {NegotiationList|null} NegotiationList
+  */
+
+   /** @type {Models} */
+  #models = {
+    Negotiation: null,
+    NegotiationList: null,
+  };
 
   /**
    * Gets DOM elements
@@ -23,9 +42,14 @@ class NegotiationController {
    * @param {NegotiationList} param.list
    * @param {NegotiationsView} param.view
    */
-  constructor ({ list, view }) {
-    this.#list = list;
-    this.#view = view;
+  constructor ({ views, models }) {
+    for (const view of views) {
+      this.#views[view.name] = view;
+    }
+
+    for (const model of models) {
+      this.#models[model.name] = model; 
+    }
 
     const inputs = document.querySelectorAll('input[id]');
 
@@ -33,8 +57,12 @@ class NegotiationController {
       this.#inputs['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
     }
 
+    this.#models.NegotiationList = new this.#models.NegotiationList();
+    this.#views.NegotiationsView = new this.#views.NegotiationsView({
+      element: document.querySelector('#negotiations'),
+    });
     this.#inputs.inputDate.focus();
-    this.#view.update(this.#list);
+    this.#views.NegotiationsView.update(this.#models.NegotiationList);
   }
   /**
    * Adds a new negotiation in the table
@@ -43,15 +71,15 @@ class NegotiationController {
   add (event) {
     event.preventDefault();
 
-    const negotiation = new Negotiation({
+    const negotiation = new this.#models.Negotiation({
       date: DateHelper.stringToDate(this.#inputs.inputDate.value),
       value: this.#inputs.inputValue.value,
       quantity: this.#inputs.inputQuantity.value,
     });
 
-    this.#list.add(negotiation);
+    this.#models.NegotiationList.add(negotiation);
     alert('The negotiation was added successfully');
-    this.#view.update(this.#list);
+    this.#views.NegotiationsView.update(this.#models.NegotiationList);
     this.#cleanForm();
   }
 
