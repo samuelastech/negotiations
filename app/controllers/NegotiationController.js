@@ -43,19 +43,8 @@ class NegotiationController {
    * @param {NegotiationsView} param.view
    */
   constructor ({ views, models }) {
-    for (const view of views) {
-      this.#views[view.name] = view;
-    }
-
-    for (const model of models) {
-      this.#models[model.name] = model; 
-    }
-
-    const inputs = document.querySelectorAll('input[id]');
-
-    for (const input of inputs) {
-      this.#inputs['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
-    }
+    this.#saveDependencies(views, models);
+    this.#saveInputs();
 
     this.#models.NegotiationList = new Proxy(new this.#models.NegotiationList(), {
       get: (target, prop) => {
@@ -76,6 +65,27 @@ class NegotiationController {
     this.#views.NegotiationsView.update(this.#models.NegotiationList);
   }
 
+  #saveDependencies (views, models) {
+    for (const view of views) {
+      this.#views[view.name] = view;
+    }
+
+    for (const model of models) {
+      this.#models[model.name] = model; 
+    }
+  }
+
+  #saveInputs () {
+    const inputs = document.querySelectorAll('input[id]');
+
+    for (const input of inputs) {
+      this.#inputs['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
+    }
+  }
+
+  /**
+   * Clears the negotiation table
+   */
   clear () {
     this.#models.NegotiationList.clear();
     alert('The negotiations was deleted');
