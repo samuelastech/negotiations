@@ -46,16 +46,15 @@ class NegotiationController {
     this.#saveDependencies(views, models);
     this.#saveInputs();
 
-    this.#models.NegotiationList = ProxyFactory.create({
-      object: new this.#models.NegotiationList(),
+    this.#models.NegotiationList = new Bind({
+      model: new this.#models.NegotiationList(),
+      view: new this.#views.NegotiationsView({
+        element: document.querySelector('#negotiations'),
+      }),
       props: ['add', 'clear'],
-      action: (model) => this.#views.NegotiationsView.update(model),
     });
-    this.#views.NegotiationsView = new this.#views.NegotiationsView({
-      element: document.querySelector('#negotiations'),
-    });
+
     this.#inputs.inputDate.focus();
-    this.#views.NegotiationsView.update(this.#models.NegotiationList);
   }
 
   #saveDependencies (views, models) {
