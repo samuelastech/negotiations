@@ -46,17 +46,10 @@ class NegotiationController {
     this.#saveDependencies(views, models);
     this.#saveInputs();
 
-    this.#models.NegotiationList = new Proxy(new this.#models.NegotiationList(), {
-      get: (target, prop) => {
-        if (['add', 'clear'].includes(prop) && typeof target[prop] === typeof Function) {
-          return (...args) => {
-            Reflect.apply(target[prop], target, args);
-            this.#views.NegotiationsView.update(target);
-          };
-        }
-
-        return Reflect.get(target, prop, target);
-      }
+    this.#models.NegotiationList = ProxyFactory.create({
+      object: new this.#models.NegotiationList(),
+      props: ['add', 'clear'],
+      action: (model) => this.#views.NegotiationsView.update(model),
     });
     this.#views.NegotiationsView = new this.#views.NegotiationsView({
       element: document.querySelector('#negotiations'),
