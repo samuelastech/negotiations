@@ -57,9 +57,16 @@ class NegotiationController {
       this.#inputs['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
     }
 
-    this.#models.NegotiationList = new this.#models.NegotiationList({
-      trap: (model) => {
-        this.#views.NegotiationsView.update(model);
+    this.#models.NegotiationList = new Proxy(new this.#models.NegotiationList(), {
+      get: (target, prop) => {
+        if (['add', 'clear'].includes(prop) && typeof target[prop] === typeof Function) {
+          return (...args) => {
+            Reflect.apply(target[prop], target, args);
+            this.#views.NegotiationsView.update(target);
+          };
+        }
+
+        return Reflect.get(target, prop, target);
       }
     });
     this.#views.NegotiationsView = new this.#views.NegotiationsView({
