@@ -1,18 +1,24 @@
-import { ProxyFactory } from "../services/ProxyFactory.js";
+import { ProxyFactory } from "../services/ProxyFactory.ts";
+
+// type ViewType<Model> = {
+//   update: (model: Model) => void;
+// };
+
+interface BindProps {
+  model: any;
+  view: any;
+  props: Array<string>;
+}
 
 class Bind {
   /**
    * Creates an association between a `model` and a `view` triggering an action when a `props` is called
-   * @param {object} param 
-   * @param {object} param.model - the model with the props you want to intercept
-   * @param {object} param.view - the view that needs some action
-   * @param {Array<string>} param.props - the props you want to watch to trigger some action
    */
-  constructor({ model, view, props }) {
+  constructor({ model, view, props }: BindProps) {
     const proxy = ProxyFactory.create({
       object: model,
       props,
-      action: (model) => {
+      action: (model: any) => {
         view.update(model);
       },
     });

@@ -5,6 +5,8 @@
     "noEmitOnError": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
   },
   "include": ["app/**/*"]
 }

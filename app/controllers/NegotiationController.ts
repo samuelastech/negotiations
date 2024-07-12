@@ -1,113 +1,89 @@
-import { Bind, DateHelper } from '../helpers/index.js';
+import { Bind, DateHelper } from '../helpers/index.ts';
+import { Negotiation, NegotiationList } from '../models/index.ts';
+import { NegotiationsView } from '../views/NegotiationsView.ts';
+
+// type Class<T = {}> = new (...args: any[]) => void;
+
+interface NegotiationControllerProps {
+  views: any;
+  models: any;
+}
 
 class NegotiationController {
-  /**
-   * @typedef {Object} Inputs
-   * @property {HTMLInputElement|null} inputDate
-   * @property {HTMLInputElement|null} inputQuantity
-   * @property {HTMLInputElement|null} inputValue
-  */
+  private inputDate: HTMLInputElement;
+  private inputQuantity: HTMLInputElement;
+  private inputValue: HTMLInputElement;
+  private NegotiationsView: NegotiationsView;
+  private NegotiationList: NegotiationList;
+  private Negotiation: Negotiation;
 
-  /** @type {Inputs} */
-  #inputs = {
-    inputDate: null,
-    inputQuantity: null,
-    inputValue: null,
-  };
+  constructor ({ views, models }: NegotiationControllerProps) {
+    this.saveDependencies(views, models);
+    this.saveInputs();
 
-  /**
-   * @typedef {Object} Views
-   * @property {NegotiationsView|null} NegotiationsView
-  */
-
-   /** @type {Views} */
-  #views = {
-    NegotiationsView: null,
-  };
-
-  /**
-   * @typedef {Object} Models
-   * @property {Negotiation|null} Negotiation
-   * @property {NegotiationList|null} NegotiationList
-  */
-
-   /** @type {Models} */
-  #models = {
-    Negotiation: null,
-    NegotiationList: null,
-  };
-
-  /**
-   * Gets DOM elements
-   * @constructor
-   * @param {object} param
-   * @param {NegotiationList} param.list
-   * @param {NegotiationsView} param.view
-   */
-  constructor ({ views, models }) {
-    this.#saveDependencies(views, models);
-    this.#saveInputs();
-
-    this.#models.NegotiationList = new Bind({
-      model: new this.#models.NegotiationList(),
-      view: new this.#views.NegotiationsView({
+    // @ts-ignore
+    this.NegotiationList = new Bind({
+      // @ts-ignore
+      model: new this.NegotiationList(),
+      // @ts-ignore
+      view: new this.NegotiationsView({
         element: document.querySelector('#negotiations'),
       }),
       props: ['add', 'clear'],
     });
 
-    this.#inputs.inputDate.focus();
+    this.inputDate.focus();
   }
 
-  #saveDependencies (views, models) {
+  private saveDependencies(views: any, models: any): void {
     for (const view of views) {
-      this.#views[view.name] = view;
+      this[view.name] = view;
     }
 
     for (const model of models) {
-      this.#models[model.name] = model; 
+      this[model.name] = model; 
     }
   }
 
-  #saveInputs () {
-    const inputs = document.querySelectorAll('input[id]');
+  private saveInputs(): void {
+    const inputs = document.querySelectorAll<HTMLInputElement>('input[id]');
 
     for (const input of inputs) {
-      this.#inputs['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
+      this['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
     }
   }
 
   /**
    * Clears the negotiation table
    */
-  clear () {
-    this.#models.NegotiationList.clear();
+  clear(): void {
+    this.NegotiationList.clear();
     alert('The negotiations was deleted');
   }
 
   /**
    * Adds a new negotiation in the table
-   * @param {SubmitEvent} event 
    */
-  add (event) {
+  add(event: SubmitEvent) {
     event.preventDefault();
 
-    const negotiation = new this.#models.Negotiation({
-      date: DateHelper.stringToDate(this.#inputs.inputDate.value),
-      value: this.#inputs.inputValue.value,
-      quantity: this.#inputs.inputQuantity.value,
+    // @ts-ignore
+    const negotiation = new this.Negotiation({
+      date: DateHelper.stringToDate(this.inputDate.value),
+      value: this.inputValue.value,
+      quantity: this.inputQuantity.value,
     });
 
-    this.#models.NegotiationList.add(negotiation);
+    this.NegotiationList.add(negotiation);
     alert('The negotiation was added successfully');
-    this.#cleanForm();
+    this.cleanForm();
   }
 
-  #cleanForm () {
-    this.#inputs.inputDate.value = '';
-    this.#inputs.inputQuantity.value = 1;
-    this.#inputs.inputValue.value = 0.0;
-    this.#inputs.inputDate.focus();
+  private cleanForm(): void {
+    this.inputDate.value = '';
+    this.inputQuantity.value = String(1);
+    this.inputValue.value = String(0.0);
+    this.inputDate.focus();
   }
 }
 

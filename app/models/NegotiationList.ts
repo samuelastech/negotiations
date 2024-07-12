@@ -1,37 +1,32 @@
+import { Negotiation } from "./Negotiation.ts";
+
 /**
  * Data structure for saving `Negotiations` with specific rules
- * @class
  */
 class NegotiationList {
-  #negotiations;
+  private negotiationsList: Array<Negotiation>;
 
-  /**
-   * @constructor
-   * @param {object} param 
-   * @param {Function} param.trap 
-   */
   constructor () {
-    this.#negotiations = [];
+    this.negotiationsList = [];
   }
 
   /** Clears the negotiation list */
-  clear () {
-    this.#negotiations = [];
+  clear(): void {
+    this.negotiationsList = [];
   }
 
   /**
    * Saves a negotiation
-   * @param {Negotiation} negotiation 
    */
-  add (negotiation) {
-    this.#negotiations.push(negotiation);
+  add(negotiation: Negotiation): void {
+    this.negotiations.push(negotiation);
   }
 
   /**
    * @returns {Array<Negotiation>}
    */
-  get negotiations () {
-    return [].concat(this.#negotiations);
+  get negotiations(): Array<Negotiation> {
+    return [].concat(this.negotiationsList);
   }
 }
 

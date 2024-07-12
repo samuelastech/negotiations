@@ -1,30 +1,27 @@
-import { DateHelper } from '../helpers/index.js';
+import { DateHelper } from '../helpers/index.ts';
+import { NegotiationList } from '../models/NegotiationList.ts';
 
 class NegotiationsView {
-  #element;
+  private element: HTMLElement;
 
   /**
    * Creates a pointer to the HTML place where the table will be rendered
-   * @param {HTMLElement} element 
    */
   constructor ({ element }) {
-    this.#element = element;
+    this.element = element;
   }
 
   /**
    * Re-renders the table
-   * @param {NegotiationList} model 
    */
-  update (model) {
-    this.#element.innerHTML = this.#template(model);
+  update(model: NegotiationList): void {
+    this.element.innerHTML = this.template(model);
   }
 
   /**
    * Creates the table
-   * @param {NegotiationList} model
-   * @returns {string}
    */
-  #template (model) {
+  private template(model: NegotiationList): string {
     let volume = 0;
     return `
       <table>

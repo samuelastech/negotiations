@@ -1,44 +1,42 @@
-class Negotiation {
-  #date = new Date();
-  #quantity = 1;
-  #value = 0.0;
+interface NegotiationProps {
+  date: Date,
+  quantity: number,
+  value: number,
+}
 
-  /**
-   * Creates a new negotiation
-   * @constructor
-   * @param {object} param
-   * @param {Date} param.date
-   * @param {number} param.quantity
-   * @param {number} param.value
-   */
-  constructor ({ date, quantity, value }) {
-    this.#date = new Date(date.getTime());
-    this.#quantity = quantity;
-    this.#value = value;
+class Negotiation {
+  private dateProp = new Date();
+  private quantityProp = 1;
+  private valueProp = 0.0;
+
+  constructor({ date, quantity, value }: NegotiationProps) {
+    this.dateProp = new Date(date.getTime());
+    this.quantityProp = quantity;
+    this.valueProp = value;
     Object.freeze(this);
   }
 
   get date () {
-    return new Date(this.#date.getTime());
+    return new Date(this.dateProp.getTime());
   }
 
   get quantity () {
-    return this.#quantity;
+    return this.quantityProp;
   }
 
   get value () {
-    return this.#value;
+    return this.valueProp;
   }
 
   get volume () {
-    return this.#quantity * this.#value;
+    return this.quantityProp * this.valueProp;
   }
 
   show () {
     return {
-      date: this.#date,
-      quantity: this.#quantity,
-      value: this.#value,
+      date: this.dateProp,
+      quantity: this.quantityProp,
+      value: this.valueProp,
     }
   }
 }

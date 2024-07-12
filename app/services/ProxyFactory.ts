@@ -1,17 +1,20 @@
+
+interface ProxyFactoryProps<Model extends object> {
+  object: Model,
+  props: Array<keyof Model>,
+  action: Function;
+}
+
 class ProxyFactory {
   /**
-   * Creates a proxy for an object
-   * @param {object} param
-   * @param {object} param.object - the object you want to make a proxy for
-   * @param {Array<string>} param.props - the props you want to watch in the object
-   * @param {Function} param.action - what to do when the props are trigerred
+   * Creates a proxy for a class/object
    */
-  static create({ object, props, action }) {
+  static create<Model extends object>({ object, props, action }: ProxyFactoryProps<Model>) {
     return new Proxy(object, {
-      get: (target, prop) => {
-        if (props.includes(prop) && this.#isFunction(target[prop])) {
-          return (...args) => {
-            Reflect.apply(target[prop], target, args);
+      get: (target: Model, prop: string) => {
+        if (props.includes(prop as keyof Model) && this.isFunction(target[prop] as Function)) {
+          return (...args: Array<any>) => {
+            Reflect.apply(target[prop] as Function, target, args);
             return action(target);
           };
         }
@@ -19,8 +22,8 @@ class ProxyFactory {
         return Reflect.get(target, prop, target);
       },
 
-      set: (target, prop, value) => {
-        if(props.includes(prop)) {
+      set: (target: Model, prop: string, value: any) => {
+        if (props.includes(prop as keyof Model)) {
           action(target);
         }
 
@@ -29,8 +32,8 @@ class ProxyFactory {
     });
   }
 
-  static #isFunction(func) {
-    return typeof func === typeof Function
+  private static isFunction(fn: Function) {
+    return typeof fn === typeof Function
   }
 }
 
