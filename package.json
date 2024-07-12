@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "lite-server"
+    "dev": "lite-server",
+    "compile": "tsc"
   },
   "keywords": [],
   "type": "module",
@@ -12,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "lite-server": "^2.6.1"
+    "lite-server": "^2.6.1",
+    "typescript": "^5.5.3"
   }
 }
