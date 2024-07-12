@@ -7,5 +7,5 @@ const controller = new NegotiationController({
   models: [Negotiation, NegotiationList],
 });
 
-document.querySelector('form').onsubmit = (event) => controller.add(event);
-document.querySelector('[type=button]').onclick = (event) => controller.clear(event);
+document.querySelector<HTMLFormElement>('form').onsubmit = (event) => controller.add(event);
+document.querySelector<HTMLButtonElement>('[type=button]').onclick = () => controller.clear();
