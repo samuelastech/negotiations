@@ -19,14 +19,14 @@ class NegotiationList {
    * Saves a negotiation
    */
   add(negotiation: Negotiation): void {
-    this.negotiations.push(negotiation);
+    this.negotiationsList.push(negotiation);
   }
 
   /**
-   * @returns {Array<Negotiation>}
+   * Lists negotiations
    */
-  get negotiations(): Array<Negotiation> {
-    return [].concat(this.negotiationsList);
+  get negotiations(): ReadonlyArray<Negotiation> {
+    return this.negotiationsList;
   }
 }
 
