@@ -4,8 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "lite-server",
-    "compile": "tsc"
+    "server": "lite-server",
+    "compile": "tsc",
+    "watch": "tsc -w",
+    "dev": "concurrently \"npm run watch\" \"npm run server\""
   },
   "keywords": [],
   "type": "module",
@@ -13,6 +15,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "lite-server": "^2.6.1",
     "typescript": "^5.5.3"
   }
