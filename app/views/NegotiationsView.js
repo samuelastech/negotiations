@@ -1,3 +1,5 @@
+import { DateHelper } from '../helpers/index.js';
+
 class NegotiationsView {
   #element;
 
@@ -55,3 +57,5 @@ class NegotiationsView {
     `;
   }
 }
+
+export { NegotiationsView };

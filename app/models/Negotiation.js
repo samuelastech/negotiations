@@ -43,3 +43,4 @@ class Negotiation {
   }
 }
 
+export { Negotiation };

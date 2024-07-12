@@ -34,3 +34,5 @@ class NegotiationList {
     return [].concat(this.#negotiations);
   }
 }
+
+export { NegotiationList };

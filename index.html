@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="app/index.js" type="module" defer></script>
   <title>Negotiations</title>
 </head>
 <body>
   <h1>Negotiations</h1>
   
-  <form onsubmit="controller.add(event)">
+  <form>
     <label>
       <span>Date</span>
       <input type="date" id="date" required autofocus /> 
@@ -30,23 +31,9 @@
   </form>
 
   <div>
-    <button type="button" onclick="controller.clear()">Delete</button>
+    <button type="button">Delete</button>
   </div>
   
   <div id="negotiations"></div>
-
-  <script src="app/helpers/DateHelper.js"></script>
-  <script src="app/helpers/Bind.js"></script>
-  <script src="app/services/ProxyFactory.js"></script>
-  <script src="app/models/Negotiation.js"></script>
-  <script src="app/models/NegotiationList.js"></script>
-  <script src="app/views/NegotiationsView.js"></script>
-  <script src="app/controllers/NegotiationController.js"></script>
-  <script>
-    const controller = new NegotiationController({
-      views: [NegotiationsView],
-      models: [Negotiation, NegotiationList],
-    });
-  </script>
 </body>
 </html>

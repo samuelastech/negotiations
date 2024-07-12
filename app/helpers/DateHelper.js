@@ -30,3 +30,5 @@ class DateHelper {
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   }
 }
+
+export { DateHelper };
