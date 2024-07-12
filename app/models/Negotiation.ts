@@ -5,39 +5,29 @@ interface NegotiationProps {
 }
 
 class Negotiation {
-  private dateProp = new Date();
-  private quantityProp = 1;
-  private valueProp = 0.0;
-
-  constructor({ date, quantity, value }: NegotiationProps) {
-    this.dateProp = new Date(date.getTime());
-    this.quantityProp = quantity;
-    this.valueProp = value;
+  constructor(private readonly props: NegotiationProps) {
+    this.props.date = new Date(props.date.getTime());
     Object.freeze(this);
   }
 
-  get date () {
-    return new Date(this.dateProp.getTime());
+  get date(): Date {
+    return new Date(this.props.date.getTime());
   }
 
-  get quantity () {
-    return this.quantityProp;
+  get quantity(): number {
+    return this.props.quantity;
   }
 
-  get value () {
-    return this.valueProp;
+  get value(): number {
+    return this.props.value;
   }
 
-  get volume () {
-    return this.quantityProp * this.valueProp;
+  get volume(): number {
+    return this.props.quantity * this.props.value;
   }
 
-  show () {
-    return {
-      date: this.dateProp,
-      quantity: this.quantityProp,
-      value: this.valueProp,
-    }
+  show(): NegotiationProps {
+    return { ...this.props };
   }
 }
 
