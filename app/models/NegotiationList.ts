@@ -1,4 +1,4 @@
-import { Negotiation } from "./Negotiation.ts";
+import { Negotiation } from "./Negotiation.js";
 
 /**
  * Data structure for saving `Negotiations` with specific rules

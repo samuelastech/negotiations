@@ -1,21 +1,21 @@
-import { DateHelper } from '../helpers/index.ts';
-import { NegotiationList } from '../models/NegotiationList.ts';
+import { DateHelper } from '../helpers/index.js';
+import { NegotiationList } from '../models/NegotiationList.js';
+
+interface NegotiationViewProps {
+  element: HTMLElement;
+}
 
 class NegotiationsView {
-  private element: HTMLElement;
-
   /**
    * Creates a pointer to the HTML place where the table will be rendered
    */
-  constructor ({ element }) {
-    this.element = element;
-  }
+  constructor (private props: NegotiationViewProps) {}
 
   /**
    * Re-renders the table
    */
   update(model: NegotiationList): void {
-    this.element.innerHTML = this.template(model);
+    this.props.element.innerHTML = this.template(model);
   }
 
   /**

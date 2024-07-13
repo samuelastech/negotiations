@@ -5,10 +5,10 @@
     "noEmitOnError": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
     "removeComments": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
-  "include": ["app/**/*"]
+  "include": ["app/**/*.ts"]
 }

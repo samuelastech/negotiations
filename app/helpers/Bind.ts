@@ -1,4 +1,4 @@
-import { ProxyFactory } from "../services/ProxyFactory.ts";
+import { ProxyFactory } from "../services/ProxyFactory.js";
 
 // type ViewType<Model> = {
 //   update: (model: Model) => void;

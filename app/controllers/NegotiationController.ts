@@ -1,6 +1,7 @@
-import { Bind, DateHelper } from '../helpers/index.ts';
-import { Negotiation, NegotiationList } from '../models/index.ts';
-import { NegotiationsView } from '../views/NegotiationsView.ts';
+import { LogExecutionTime } from '../decorators/executionTime.js';
+import { Bind, DateHelper } from '../helpers/index.js';
+import { Negotiation, NegotiationList } from '../models/index.js';
+import { NegotiationsView } from '../views/NegotiationsView.js';
 
 // type Class<T = {}> = new (...args: any[]) => void;
 
@@ -64,6 +65,7 @@ class NegotiationController {
   /**
    * Adds a new negotiation in the table
    */
+  @LogExecutionTime()
   add(event: SubmitEvent) {
     event.preventDefault();
 

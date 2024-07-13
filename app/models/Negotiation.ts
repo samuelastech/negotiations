@@ -7,7 +7,7 @@ interface NegotiationProps {
 class Negotiation {
   constructor(private readonly props: NegotiationProps) {
     this.props.date = new Date(props.date.getTime());
-    Object.freeze(this);
+    Object.freeze(this.props);
   }
 
   get date(): Date {
