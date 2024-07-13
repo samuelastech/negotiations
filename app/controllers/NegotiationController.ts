@@ -1,3 +1,4 @@
+import { ElementInject } from '../decorators/ElementInject.js';
 import { LogExecutionTime } from '../decorators/executionTime.js';
 import { Bind, DateHelper } from '../helpers/index.js';
 import { Negotiation, NegotiationList } from '../models/index.js';
@@ -11,8 +12,11 @@ interface NegotiationControllerProps {
 }
 
 class NegotiationController {
+  @ElementInject('#date')
   private inputDate: HTMLInputElement;
+  @ElementInject('#quantity')
   private inputQuantity: HTMLInputElement;
+  @ElementInject('#value')
   private inputValue: HTMLInputElement;
   private NegotiationsView: NegotiationsView;
   private NegotiationList: NegotiationList;
@@ -20,8 +24,6 @@ class NegotiationController {
 
   constructor ({ views, models }: NegotiationControllerProps) {
     this.saveDependencies(views, models);
-    this.saveInputs();
-
     // @ts-ignore
     this.NegotiationList = new Bind({
       // @ts-ignore
@@ -43,14 +45,6 @@ class NegotiationController {
 
     for (const model of models) {
       this[model.name] = model; 
-    }
-  }
-
-  private saveInputs(): void {
-    const inputs = document.querySelectorAll<HTMLInputElement>('input[id]');
-
-    for (const input of inputs) {
-      this['input' + input.id[0].toUpperCase() + input.id.slice(1)] = input;
     }
   }
 
