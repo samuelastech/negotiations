@@ -7,5 +7,10 @@ const controller = new NegotiationController({
   models: [Negotiation, NegotiationList],
 });
 
-document.querySelector<HTMLFormElement>('form').onsubmit = (event) => controller.add(event);
-document.querySelector<HTMLButtonElement>('[type=button]').onclick = () => controller.clear();
+const form = document.querySelector<HTMLFormElement>('form');
+const button = document.querySelector<HTMLButtonElement>('[type=button]');
+
+if(form && button) {
+  form.onsubmit = (event) => controller.add(event);
+  button.onclick = () => controller.clear();
+}
