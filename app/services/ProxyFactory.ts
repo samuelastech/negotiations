@@ -1,7 +1,8 @@
+import { Model } from "../models/Model.js";
 
-interface ProxyFactoryProps<Model extends object> {
+interface ProxyFactoryProps<Model> {
   object: Model,
-  props: Array<keyof Model>,
+  props: Array<string>,
   action: Function;
 }
 
@@ -9,10 +10,10 @@ class ProxyFactory {
   /**
    * Creates a proxy for a class/object
    */
-  static create<Model extends object>({ object, props, action }: ProxyFactoryProps<Model>) {
+  static create({ object, props, action }: ProxyFactoryProps<Model>): Model {
     return new Proxy(object, {
       get: (target: Model, prop: string) => {
-        if (props.includes(prop as keyof Model) && this.isFunction(target[prop] as Function)) {
+        if (props.includes(prop) && this.isFunction(target, prop)) {
           return (...args: Array<any>) => {
             Reflect.apply(target[prop] as Function, target, args);
             return action(target);
@@ -23,7 +24,7 @@ class ProxyFactory {
       },
 
       set: (target: Model, prop: string, value: any) => {
-        if (props.includes(prop as keyof Model)) {
+        if (props.includes(prop)) {
           action(target);
         }
 
@@ -32,8 +33,8 @@ class ProxyFactory {
     });
   }
 
-  private static isFunction(fn: Function) {
-    return typeof fn === typeof Function
+  private static isFunction(target: Model, prop: string) {
+    return typeof target[prop] === typeof Function;
   }
 }
 

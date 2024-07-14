@@ -1,11 +1,10 @@
-interface NegotiationProps {
-  date: Date,
-  quantity: number,
-  value: number,
-}
+import { Negotiation } from "../entities/Negotiation.js";
 
-class Negotiation {
-  constructor(private readonly props: NegotiationProps) {
+/**
+ * Implementation of `Negotiation`
+ */
+class NegotiationEntity implements Negotiation {
+  constructor(private readonly props: Negotiation) {
     this.props.date = new Date(props.date.getTime());
     Object.freeze(this.props);
   }
@@ -26,9 +25,9 @@ class Negotiation {
     return this.props.quantity * this.props.value;
   }
 
-  show(): NegotiationProps {
+  show(): Negotiation {
     return { ...this.props };
   }
 }
 
-export { Negotiation };
+export { NegotiationEntity };

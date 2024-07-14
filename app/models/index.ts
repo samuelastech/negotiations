@@ -1,4 +1,4 @@
-import { Negotiation } from './Negotiation.js';
+import { NegotiationEntity } from './NegotiationEntity.js';
 import { NegotiationList } from './NegotiationList.js';
 
-export { Negotiation, NegotiationList };
+export { NegotiationEntity, NegotiationList };

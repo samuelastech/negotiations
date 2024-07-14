@@ -1,15 +1,7 @@
 import { ElementInject } from '../decorators/ElementInject.js';
 import { LogExecutionTime } from '../decorators/executionTime.js';
-import { Bind, DateHelper } from '../helpers/index.js';
-import { Negotiation, NegotiationList } from '../models/index.js';
-import { NegotiationsView } from '../views/NegotiationsView.js';
-
-// type Class<T = {}> = new (...args: any[]) => void;
-
-interface NegotiationControllerProps {
-  views: any;
-  models: any;
-}
+import { DateHelper } from '../helpers/index.js';
+import { NegotiationService } from '../services/NegotiationService.js';
 
 class NegotiationController {
   @ElementInject('#date')
@@ -18,41 +10,16 @@ class NegotiationController {
   private inputQuantity: HTMLInputElement;
   @ElementInject('#value')
   private inputValue: HTMLInputElement;
-  private NegotiationsView: NegotiationsView;
-  private NegotiationList: NegotiationList;
-  private Negotiation: Negotiation;
 
-  constructor ({ views, models }: NegotiationControllerProps) {
-    this.saveDependencies(views, models);
-    // @ts-ignore
-    this.NegotiationList = new Bind({
-      // @ts-ignore
-      model: new this.NegotiationList(),
-      // @ts-ignore
-      view: new this.NegotiationsView({
-        element: document.querySelector('#negotiations'),
-      }),
-      props: ['add', 'clear'],
-    });
-
+  constructor(private readonly negotiationService: NegotiationService) {
     this.inputDate.focus();
-  }
-
-  private saveDependencies(views: any, models: any): void {
-    for (const view of views) {
-      this[view.name] = view;
-    }
-
-    for (const model of models) {
-      this[model.name] = model; 
-    }
   }
 
   /**
    * Clears the negotiation table
    */
   clear(): void {
-    this.NegotiationList.clear();
+    this.negotiationService.clear();
     alert('The negotiations was deleted');
   }
 
@@ -60,17 +27,13 @@ class NegotiationController {
    * Adds a new negotiation in the table
    */
   @LogExecutionTime()
-  add(event: SubmitEvent) {
+  add(event: SubmitEvent): void {
     event.preventDefault();
-
-    // @ts-ignore
-    const negotiation = new this.Negotiation({
+    this.negotiationService.add({
       date: DateHelper.stringToDate(this.inputDate.value),
-      value: this.inputValue.value,
-      quantity: this.inputQuantity.value,
+      value: parseFloat(this.inputValue.value),
+      quantity: parseInt(this.inputQuantity.value),
     });
-
-    this.NegotiationList.add(negotiation);
     alert('The negotiation was added successfully');
     this.cleanForm();
   }

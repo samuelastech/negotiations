@@ -1,32 +1,31 @@
-import { Negotiation } from "./Negotiation.js";
+import { Negotiation } from "../entities/Negotiation.js";
+import { Model } from "./Model.js";
 
 /**
  * Data structure for saving `Negotiations` with specific rules
  */
-class NegotiationList {
-  private negotiationsList: Array<Negotiation>;
+class NegotiationList implements Model {
+  private list: Negotiation[] = [];
 
-  constructor () {
-    this.negotiationsList = [];
-  }
-
-  /** Clears the negotiation list */
+  /**
+   * Clears the negotiation list
+   */
   clear(): void {
-    this.negotiationsList = [];
+    this.list = [];
   }
 
   /**
    * Saves a negotiation
    */
   add(negotiation: Negotiation): void {
-    this.negotiationsList.push(negotiation);
+    this.list.push(negotiation);
   }
 
   /**
    * Lists negotiations
    */
-  get negotiations(): ReadonlyArray<Negotiation> {
-    return this.negotiationsList;
+  get negotiations(): readonly Negotiation[] {
+    return this.list;
   }
 }
 

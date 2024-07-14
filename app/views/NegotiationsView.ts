@@ -1,21 +1,21 @@
 import { DateHelper } from '../helpers/index.js';
 import { NegotiationList } from '../models/NegotiationList.js';
 
-interface NegotiationViewProps {
-  element: HTMLElement;
-}
-
 class NegotiationsView {
+  private element: HTMLElement;
+
   /**
    * Creates a pointer to the HTML place where the table will be rendered
    */
-  constructor (private props: NegotiationViewProps) {}
+  constructor (selector: string) {
+    this.element = document.querySelector(selector) as HTMLElement;
+  }
 
   /**
    * Re-renders the table
    */
   update(model: NegotiationList): void {
-    this.props.element.innerHTML = this.template(model);
+    this.element.innerHTML = this.template(model);
   }
 
   /**
@@ -35,7 +35,7 @@ class NegotiationsView {
         </thead>
         <tbody>
           ${model.negotiations.map((negotiation) => {
-            volume += negotiation.volume;
+            volume += negotiation.volume ? negotiation.volume : 0;
             return `
               <tr>
                 <td>${DateHelper.dateToString(negotiation.date)}</td>
