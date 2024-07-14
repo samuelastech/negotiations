@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "dist/app",
     "target": "ES6",
     "noEmitOnError": true,
     "module": "NodeNext",
