@@ -1,5 +1,5 @@
-import { Negotiation } from "../entities/Negotiation.js";
-import { Model } from "./Model.js";
+import { Negotiation } from "./negotiation.model.js";
+import { Model } from "../common/index.js";
 
 /**
  * Data structure for saving `Negotiations` with specific rules

@@ -1,4 +1,4 @@
-import { Negotiation } from "../entities/Negotiation.js";
+import { Negotiation } from "./negotiation.model.js";
 
 /**
  * Implementation of `Negotiation`

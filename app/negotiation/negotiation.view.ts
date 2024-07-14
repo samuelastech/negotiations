@@ -1,5 +1,5 @@
-import { DateHelper } from '../helpers/index.js';
-import { NegotiationList } from '../models/NegotiationList.js';
+import { DateHelper } from '../utils/date-helper.js';
+import { NegotiationList } from './negotiation-list.model.js';
 
 class NegotiationsView {
   private element: HTMLElement;

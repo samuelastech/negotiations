@@ -1,6 +1,6 @@
-import { Model } from "../models/Model.js";
-import { ProxyFactory } from "../services/ProxyFactory.js";
-import { View } from "../views/View.js";
+import { Model } from "./model.js";
+import { View } from "./view.js";
+import { ProxyFactory } from "./proxy-factory.js";
 
 interface BindProps<Model, View> {
   model: Model;

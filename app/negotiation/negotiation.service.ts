@@ -1,5 +1,6 @@
-import { NegotiationList, NegotiationEntity } from "../models/index.js";
-import { Negotiation } from "../entities/Negotiation.js";
+import { NegotiationList } from "./negotiation-list.model.js";
+import { NegotiationEntity } from "./negotiation.entity.js";
+import { Negotiation } from "./negotiation.model.js";
 
 class NegotiationService {
   constructor(private readonly negotiationList: NegotiationList) {}
