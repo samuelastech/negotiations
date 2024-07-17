@@ -8,7 +8,9 @@
     "removeComments": true,
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    // "strict": true,
   },
   "include": ["app/**/*.ts"]
 }
