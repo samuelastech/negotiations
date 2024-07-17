@@ -24,31 +24,33 @@ class NegotiationsView {
   private template(model: NegotiationList): string {
     let volume = 0;
     return `
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Quantity</th>
-            <th>Value</th>
-            <th>Volume</th>
+      <table class="app-table">
+        <thead class="table-header">
+          <tr class="row">
+            <th class="column">Date</th>
+            <th class="column">Quantity</th>
+            <th class="column">Value</th>
+            <th class="column">Volume</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="table-body">
           ${model.negotiations.map((negotiation) => {
             volume += negotiation.volume ? negotiation.volume : 0;
             return `
-              <tr>
-                <td>${DateHelper.dateToString(negotiation.date)}</td>
-                <td>${negotiation.quantity}</td>
-                <td>${negotiation.value}</td>
-                <td>${negotiation.volume}</td>
+              <tr class="row">
+                <td class="column">${DateHelper.dateToString(negotiation.date)}</td>
+                <td class="column">${negotiation.quantity}</td>
+                <td class="column">${negotiation.value}</td>
+                <td class="column">${negotiation.volume}</td>
               </tr>
             `;
           }).join('')}
         </tbody>
-        <tfoot>
-          <td colspan="3"></td>
-          <td>${volume}</td>
+        <tfoot class="table-footer">
+          <tr class="row">
+            <td class="column" colspan="3"></td>
+            <td class="column">${volume}</td>
+          </tr>
         </tfoot>
       </table>
     `;

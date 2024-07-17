@@ -3,34 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/main.css">
   <title>Negotiations</title>
+  <script src="dist/app/index.js" type="module" defer></script>
 </head>
 <body>
-  <h1>Negotiations</h1>
+  <h1 class="app-title">Negotiations</h1>
   
-  <form>
-    <label>
-      <span>Date</span>
-      <input type="date" id="date" required autofocus /> 
+  <form class="app-form">
+    <label class="app-field">
+      <span class="label">Date</span>
+      <input type="date" id="date" class="input" required autofocus /> 
     </label>
 
-    <label>
-      <span>Quantity</span>
-      <input type="number" id="quantity" min="1" step="1" value="1" required /> 
+    <label class="app-field">
+      <span class="label">Quantity</span>
+      <input type="number" id="quantity" min="1" step="1" value="1" class="input" required /> 
     </label>
 
-    <label>
-      <span>Value</span>
-      <input type="number" id="value" min="0.01" step="0.01" value="0.0" required /> 
+    <label class="app-field">
+      <span class="label">Value</span>
+      <input type="number" id="value" min="0.01" step="0.01" value="0.0" class="input" required /> 
     </label>
 
-    <button type="submit">
+    <button type="submit" class="app-button">
       Include
     </button>
   </form>
 
-  <div>
-    <button type="button">Delete</button>
+  <div class="app-tools">
+    <button class="app-button -red" type="button">Delete all</button>
   </div>
   
   <div id="negotiations"></div>
