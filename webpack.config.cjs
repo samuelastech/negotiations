@@ -18,11 +18,13 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: './index.html'
+      template: './index.html',
+      hash: true,
     }),
   ],
 };
