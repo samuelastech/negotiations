@@ -1,5 +1,6 @@
 import { NegotiationController, NegotiationList, NegotiationService, NegotiationsView } from "./negotiation/index.js";
 import { Bind } from "./common/index.js";
+import '../css/main.css';
 
 const list = Bind.create<NegotiationList>({
   model: new NegotiationList(),

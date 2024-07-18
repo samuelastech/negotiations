@@ -1,12 +1,13 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './app/index.ts',
   module: {
     rules: [
-      { test: /\.([cm]?ts|tsx)$/, loader: "ts-loader" }
+      { test: /\.([cm]?ts|tsx)$/, loader: "ts-loader" },
+      { test: /\.(css)$/, use: [MiniCSSExtractPlugin.loader, 'css-loader'] },
     ],
   },
   resolve: {
@@ -27,10 +28,6 @@ module.exports = {
       template: './index.html',
       hash: true,
     }),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: './css', to: 'css' }
-      ]
-    }),
+    new MiniCSSExtractPlugin()
   ],
 };
