@@ -1,6 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const CSSMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
   entry: './app/index.ts',
@@ -23,11 +25,16 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+  optimization: {
+    minimize: true,
+    minimizer: [new CSSMinimizerWebpackPlugin(), '...'],
+  },
   plugins: [
     new HTMLWebpackPlugin({
       template: './index.html',
       hash: true,
     }),
-    new MiniCSSExtractPlugin()
+    new MiniCSSExtractPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin()
   ],
 };
